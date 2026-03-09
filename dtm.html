@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple ATM</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f0f0f0;
+    text-align:center;
+}
+
+.container{
+    width:350px;
+    margin:auto;
+    margin-top:80px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    cursor:pointer;
+}
+
+input{
+    padding:8px;
+    margin:10px;
+    width:80%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>ATM Machine</h2>
+
+<div id="login">
+    <input type="password" id="pin" placeholder="Enter PIN"><br>
+    <button onclick="checkPin()">Login</button>
+</div>
+
+<div id="menu" style="display:none;">
+    <h3>Select Option</h3>
+    <button onclick="debit()">Debit</button>
+    <button onclick="credit()">Credit</button>
+    <button onclick="checkBalance()">Check Balance</button>
+</div>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+let correctPin = "1234";
+let balance = 5000;
+
+function checkPin(){
+    let enteredPin = document.getElementById("pin").value;
+
+    if(enteredPin === correctPin){
+        document.getElementById("login").style.display="none";
+        document.getElementById("menu").style.display="block";
+    }
+    else{
+        document.getElementById("result").innerText =
+        "Incorrect Password. Access Denied.";
+    }
+}
+
+function debit(){
+    let amount = prompt("Enter amount to withdraw:");
+
+    amount = Number(amount);
+
+    if(amount > balance){
+        document.getElementById("result").innerText =
+        "Insufficient Balance";
+    }
+    else{
+        balance -= amount;
+        document.getElementById("result").innerText =
+        "Withdraw Successful. Balance: ₹" + balance;
+    }
+}
+
+function credit(){
+    let amount = prompt("Enter amount to deposit:");
+
+    amount = Number(amount);
+
+    balance += amount;
+
+    document.getElementById("result").innerText =
+    "Deposit Successful. Balance: ₹" + balance;
+}
+
+function checkBalance(){
+    document.getElementById("result").innerText =
+    "Current Balance: ₹" + balance;
+}
+
+</script>
+
+</body>
+</html>
